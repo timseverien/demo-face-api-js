@@ -1,0 +1,37 @@
+body {
+  margin: 0;
+  padding: 0;
+
+  font-family: sans-serif;
+}
+
+button {
+  font-size: inherit;
+  font-family: inherit;
+}
+
+canvas {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 1rem;
+}
+
+main {
+  margin: 1rem;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.input-output {
+  display: flex;
+  margin-bottom: 1rem;
+
+  align-items: flex-start;
+  flex-flow: row wrap;
+  gap: 1rem;
+}
