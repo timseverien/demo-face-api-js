@@ -1,20 +1,32 @@
 /* globals faceapi */
 import 'https://unpkg.com/face-api.js@0.22.2/dist/face-api.min.js';
 
+import createFeedbackBox from './createFeedbackBox.js';
 import loadRandomImage from './loadRandomImage.js';
 
-async function update(context, contextCropped) {
+async function update(context, contextCropped, feedbackBox) {
+  feedbackBox.show('Loading random image', { withSpinner: true });
   const image = await loadRandomImage();
-  const faces = await faceapi.detectAllFaces(image, new faceapi.TinyFaceDetectorOptions());
 
   context.canvas.height = image.naturalHeight;
   context.canvas.width = image.naturalWidth;
   context.drawImage(image, 0, 0);
 
+  feedbackBox.show('Detecting face(s)', { withSpinner: true });
+  const faces = await faceapi.detectAllFaces(
+    image,
+    new faceapi.TinyFaceDetectorOptions(),
+  );
+
   if (faces.length === 0) {
     contextCropped.canvas.hidden = true;
+
+    feedbackBox.show('No face detected');
+
     return;
   }
+
+  feedbackBox.hide();
 
   const box = {
     bottom: 0,
@@ -56,23 +68,29 @@ async function update(context, contextCropped) {
 }
 
 (async () => {
+  const feedbackBox = createFeedbackBox(
+    document.getElementById('feedback-box'),
+  );
+
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
 
   const canvasCropped = document.createElement('canvas');
   const contextCropped = canvasCropped.getContext('2d');
 
-  const elementContainer = document.getElementById('container');
+  const elementContainerInput = document.getElementById('container-input');
+  const elementContainerOutput = document.getElementById('container-output');
   const buttonRefresh = document.getElementById('button-refresh');
 
-  elementContainer.appendChild(canvas);
-  elementContainer.appendChild(canvasCropped);
+  elementContainerInput.appendChild(canvas);
+  elementContainerOutput.appendChild(canvasCropped);
 
+  feedbackBox.show('Loading TensorFlow model', { withSpinner: true });
   await faceapi.nets.tinyFaceDetector.loadFromUri('models');
 
-  update(context, contextCropped);
+  update(context, contextCropped, feedbackBox);
 
   buttonRefresh.addEventListener('click', () => {
-    update(context, contextCropped);
+    update(context, contextCropped, feedbackBox);
   });
 })();

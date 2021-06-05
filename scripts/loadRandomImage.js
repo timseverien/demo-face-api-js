@@ -6,6 +6,6 @@ export default function loadRandomImage() {
   return new Promise((resolve, reject) => {
     image.addEventListener('error', (error) => reject(error));
     image.addEventListener('load', () => resolve(image));
-    image.src = 'https://source.unsplash.com/512x512/?face';
+    image.src = `https://source.unsplash.com/512x512/?face&_=${Date.now()}`;
   });
 }

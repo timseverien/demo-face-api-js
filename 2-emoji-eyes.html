@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Face Detection On The Web With face-api.js - Emoji eyes</title>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Face Detection On The Web With face-api.js - Emoji eyes</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
 
-  <link rel="stylesheet" href="styles/main.css">
-</head>
+  <body>
+    <main>
+      <h1>Emoji eyes</h1>
 
-<body>
-  <main>
-    <h1>Emoji eyes</h1>
+      <div id="container" class="canvas-container">
+        <div class="feedback-box" id="feedback-box" hidden>
+          <span class="three-quarters-loader" id="feedback-box-spinner"></span>
+          <span id="feedback-box-content"></span>
+        </div>
+      </div>
+      <button id="button-refresh">Get new random image</button>
+    </main>
 
-    <div id="container"></div>
-    <button id="button-refresh">Get new random image</button>
-  </main>
-
-  <script type="module" src="scripts/2-emoji-eyes.js"></script>
-</body>
-
+    <script type="module" src="scripts/2-emoji-eyes.js"></script>
+  </body>
 </html>
